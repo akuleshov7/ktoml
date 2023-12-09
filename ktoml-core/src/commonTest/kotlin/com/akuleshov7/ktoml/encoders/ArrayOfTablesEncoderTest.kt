@@ -19,9 +19,8 @@ class ArrayOfTablesEncoderTest {
                     )
         )
 
-        assertEncodedEquals(
-            value = SimpleTableArray(),
-            expectedToml = """
+        SimpleTableArray().shouldEncodeInto(
+            """
                 [[fruits]]
                     a = "apple"
                     b = "qwerty"
@@ -56,9 +55,8 @@ class ArrayOfTablesEncoderTest {
                     )
         )
 
-        assertEncodedEquals(
-            value = SimpleTableArrayWithEmpty(),
-            expectedToml = """
+        SimpleTableArrayWithEmpty().shouldEncodeInto(
+            """
                 [[products]]
                     name = "Hammer"
                     sku = 738594937
@@ -94,9 +92,8 @@ class ArrayOfTablesEncoderTest {
             val fruits: List<Table1> = listOf(Table1())
         )
 
-        assertEncodedEquals(
-            value = NestedTableArray(),
-            expectedToml = """
+        NestedTableArray().shouldEncodeInto(
+            """
                 [[fruits.varieties]]
                     name = "red delicious"
                 
@@ -125,9 +122,8 @@ class ArrayOfTablesEncoderTest {
             val fruits: List<Table1> = listOf(Table1())
         )
 
-        assertEncodedEquals(
-            value = TableArrayWithNestedTable(),
-            expectedToml = """
+        TableArrayWithNestedTable().shouldEncodeInto(
+            """
                 [[fruits.varieties]]
                     name = "red delicious"
                 
@@ -157,9 +153,8 @@ class ArrayOfTablesEncoderTest {
                     )
         )
 
-        assertEncodedEquals(
-            value = TableArrayWithNestedTable(),
-            expectedToml = """
+        TableArrayWithNestedTable().shouldEncodeInto(
+            """
                 [[fruit]]
                     [fruit.physical]
                         color = "red"
@@ -194,9 +189,8 @@ class ArrayOfTablesEncoderTest {
 
         )
 
-        assertEncodedEquals(
-            value = FlatTableArray(),
-            expectedToml = """
+        FlatTableArray().shouldEncodeInto(
+            """
                 [[fruits.varieties]]
                     name = "red delicious"
                 
@@ -235,9 +229,8 @@ class ArrayOfTablesEncoderTest {
             val c: List<InnerTable> = listOf(InnerTable(5))
         )
 
-        assertEncodedEquals(
-            value = ComplexTableArrays(),
-            expectedToml = """
+        ComplexTableArrays().shouldEncodeInto(
+            """
                 [[a.b]]
                     name = 1
                 
@@ -279,9 +272,8 @@ class ArrayOfTablesEncoderTest {
         @Serializable
         data class ComplexTable(val a: Table1 = Table1())
 
-        assertEncodedEquals(
-            value = ComplexTable(),
-            expectedToml = """
+        ComplexTable().shouldEncodeInto(
+            """
                 [a]
                     name = 1
                 

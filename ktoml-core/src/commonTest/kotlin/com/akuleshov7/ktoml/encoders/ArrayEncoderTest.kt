@@ -13,10 +13,7 @@ class ArrayEncoderTest {
         @Serializable
         data class EmptyArray(val a: List<String> = emptyList())
 
-        assertEncodedEquals(
-            value = EmptyArray(),
-            expectedToml = "a = [ ]"
-        )
+        EmptyArray().shouldEncodeInto("a = [ ]")
     }
     
     @Test
@@ -24,10 +21,7 @@ class ArrayEncoderTest {
         @Serializable
         data class SimpleArray(val a: List<Long> = listOf(1, 2, 3))
 
-        assertEncodedEquals(
-            value = SimpleArray(),
-            expectedToml = "a = [ 1, 2, 3 ]"
-        )
+        SimpleArray().shouldEncodeInto("a = [ 1, 2, 3 ]")
     }
 
     @Test
@@ -42,9 +36,8 @@ class ArrayEncoderTest {
             val literalStrings: List<String> = listOf("\"string\"")
         )
 
-        assertEncodedEquals(
-            value = Arrays(),
-            expectedToml = """
+        Arrays().shouldEncodeInto(
+            """
                 booleans = [ true, false ]
                 longs = [ 1, 2, 3 ]
                 doubles = [ 3.14 ]
@@ -68,9 +61,8 @@ class ArrayEncoderTest {
                     (0L..2L).map(::InlineTable)
         )
 
-        assertEncodedEquals(
-            value = InlineTableArray(),
-            expectedToml = """
+        InlineTableArray().shouldEncodeInto(
+            """
                 inlineTables = [
                     { index = 0 },
                     { index = 1 },
@@ -91,10 +83,7 @@ class ArrayEncoderTest {
                     )
         )
 
-        assertEncodedEquals(
-            value = NestedArray(),
-            expectedToml = "a = [ [ 1, 2 ], [ 3, 4 ] ]"
-        )
+        NestedArray().shouldEncodeInto("a = [ [ 1, 2 ], [ 3, 4 ] ]")
     }
 
     @Test
@@ -105,9 +94,8 @@ class ArrayEncoderTest {
         @Serializable
         data class ArrayInTable(val table: Table = Table())
 
-        assertEncodedEquals(
-            value = ArrayInTable(),
-            expectedToml = """
+        ArrayInTable().shouldEncodeInto(
+            """
                 [table]
                     a = [ 1, 2, 3 ]
             """.trimIndent()
@@ -123,10 +111,7 @@ class ArrayEncoderTest {
         @Serializable
         data class ArrayInInlineTable(val a: InlineTable = InlineTable())
 
-        assertEncodedEquals(
-            value = ArrayInInlineTable(),
-            expectedToml = "a = { b = [ 1, 2, 3 ] }"
-        )
+        ArrayInInlineTable().shouldEncodeInto("a = { b = [ 1, 2, 3 ] }")
     }
 
     @Test
@@ -137,9 +122,6 @@ class ArrayEncoderTest {
         @Serializable
         data class EmptyListData(val content: List<EmbeddedData> = listOf() )
         
-        assertEncodedEquals(
-            value = EmptyListData(),
-            expectedToml = ""
-        )
+        EmptyListData().shouldEncodeInto("")
     }
 }

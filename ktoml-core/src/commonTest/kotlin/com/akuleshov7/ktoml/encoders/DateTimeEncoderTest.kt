@@ -22,9 +22,8 @@ class DateTimeEncoderTest {
 
     @Test
     fun dateTimeTest() {
-        assertEncodedEquals(
-            value = DateTimes(),
-            expectedToml = """
+        DateTimes().shouldEncodeInto(
+            """
                 instant = 1979-05-27T07:32:00Z
                 instantWithNanos = 1979-05-27T00:32:00.999999Z
                 localDateTime = 1979-05-27T07:32

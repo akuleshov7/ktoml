@@ -71,9 +71,8 @@ class PolymorphicEncoderTest {
             )
         )
 
-        assertEncodedEquals(
-            value = File(),
-            expectedToml = """
+        File().shouldEncodeInto(
+            """
                 [[polymorphicTables]]
                     type = "childA"
                     value = [ 1, 2, 3 ]
@@ -101,9 +100,8 @@ class PolymorphicEncoderTest {
             )
         )
 
-        assertEncodedEquals(
-            value = File(),
-            expectedToml = """polymorphicArray = [ [ "childA", [ 1, 2, 3 ] ], [ "childB", "string" ], [ "childC", "A" ] ]"""
+        File().shouldEncodeInto(
+            """polymorphicArray = [ [ "childA", [ 1, 2, 3 ] ], [ "childB", "string" ], [ "childC", "A" ] ]"""
         )
     }
 }

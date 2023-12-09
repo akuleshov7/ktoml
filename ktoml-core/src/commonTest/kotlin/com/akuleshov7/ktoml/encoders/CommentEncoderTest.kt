@@ -24,9 +24,8 @@ class CommentEncoderTest {
             val table: Table = Table()
         )
 
-        assertEncodedEquals(
-            value = File(),
-            expectedToml = """
+        File().shouldEncodeInto(
+            """
                 # Comment
                 a = 0 # Comment
                 b = ""

@@ -5,6 +5,7 @@ import org.jetbrains.kotlin.gradle.targets.jvm.tasks.KotlinJvmTest
 plugins {
     kotlin("multiplatform")
     kotlin("plugin.serialization")
+    id("io.kotest.multiplatform")
     id("com.akuleshov7.buildutils.publishing-configuration")
 }
 
@@ -50,6 +51,8 @@ kotlin {
             dependencies {
                 implementation(kotlin("test-common"))
                 implementation(kotlin("test-annotations-common"))
+                implementation("io.kotest:kotest-framework-engine:${Versions.KOTEST}")
+                implementation("io.kotest:kotest-assertions-core:${Versions.KOTEST}")
             }
         }
 
@@ -63,7 +66,6 @@ kotlin {
             dependsOn(commonTest)
             dependencies {
                 implementation(kotlin("test-junit5"))
-                implementation("org.junit.jupiter:junit-jupiter-engine:5.0.0")
             }
         }
         all {

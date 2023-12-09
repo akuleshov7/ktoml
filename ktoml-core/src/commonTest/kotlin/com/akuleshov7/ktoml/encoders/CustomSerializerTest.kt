@@ -31,9 +31,6 @@ class CustomSerializerTest {
 
     @Test
     fun singlePropertyCustomSerializerTest() {
-        assertEncodedEquals(
-            value = SingleProperty(),
-            expectedToml = """rgb = "0""""
-        )
+        SingleProperty().shouldEncodeInto("""rgb = "0"""")
     }
 }

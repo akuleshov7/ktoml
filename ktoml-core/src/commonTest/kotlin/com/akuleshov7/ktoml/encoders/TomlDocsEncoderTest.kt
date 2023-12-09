@@ -16,7 +16,6 @@ import kotlinx.serialization.descriptors.element
 import kotlinx.serialization.encoding.Decoder
 import kotlinx.serialization.encoding.Encoder
 import kotlinx.serialization.encoding.encodeCollection
-import kotlin.test.Ignore
 import kotlin.test.Test
 
 class TomlDocsEncoderTest {
@@ -83,9 +82,8 @@ class TomlDocsEncoderTest {
 
     @Test
     fun readMeTest() {
-        assertEncodedEquals(
-            value = ReadMe(),
-            expectedToml = """
+        ReadMe().shouldEncodeInto(
+            """
                 title = "TOML Example"
                 
                 [owner]
@@ -125,9 +123,8 @@ class TomlDocsEncoderTest {
             val str3: String = "Name\tJos\u00E9\nLoc\tSF."
         )
 
-        assertEncodedEquals(
-            value = File(),
-            expectedToml = """
+        File().shouldEncodeInto(
+            """
                 str1 = "I'm a string."
                 str2 = "You can \"quote\" me."
                 str3 = "Name	José\nLoc	SF."
@@ -149,9 +146,8 @@ class TomlDocsEncoderTest {
             val regex: String = """<\i\c*\s*>"""
         )
 
-        assertEncodedEquals(
-            value = File(),
-            expectedToml = """
+        File().shouldEncodeInto(
+            """
                 winpath = 'C:\Users\nodejs\templates'
                 winpath2 = '\\ServerX\admin${'$'}\system32\'
                 quoted = 'Tom "Dubs" Preston-Werner'

@@ -1,13 +1,9 @@
 package com.akuleshov7.ktoml.decoders
 
 import com.akuleshov7.ktoml.Toml
-import com.akuleshov7.ktoml.TomlConfig
 import com.akuleshov7.ktoml.TomlInputConfig
 import kotlinx.serialization.Serializable
-import kotlinx.serialization.decodeFromString
 import kotlin.test.Test
-import kotlin.test.assertEquals
-import kotlin.test.assertNotNull
 
 @Serializable
 data class Key(val value: Long)
@@ -30,70 +26,60 @@ data class Config4(val key: Key)
 class NullableTablesTest {
     @Test
     fun nullableKey() {
-        val mapper = Toml(
+        val tomlInstance = Toml(
             inputConfig = TomlInputConfig(
                 ignoreUnknownNames = true,
                 allowEmptyValues = true
             )
         )
-        val toml1 = mapper.decodeFromString<Config1>(
-            """            
+
+        """            
             [key]
             value = 1            
         """.trimIndent()
-        )
+            .shouldDecodeInto(
+                decodedValue = Config1(Key(1L)),
+                tomlInstance = tomlInstance
+            )
 
-        assertNotNull(toml1)
-        assertEquals(1L, toml1.key?.value)
-
-        val toml2 = mapper.decodeFromString<Config2>(
-            """            
+        """            
             [key]
             value = 1            
         """.trimIndent()
-        )
+            .shouldDecodeInto(
+                decodedValue = Config2(Key(1L)),
+                tomlInstance = tomlInstance
+            )
 
-        assertNotNull(toml2)
-        assertEquals(1L, toml2.key?.value)
-
-        val toml3 = mapper.decodeFromString<Config3>(
-            """            
+        """            
             [key]
             value = 1            
         """.trimIndent()
-        )
+            .shouldDecodeInto(
+                decodedValue = Config3(Key(1L)),
+                tomlInstance = tomlInstance
+            )
 
-        assertNotNull(toml3)
-        assertEquals(1L, toml3.key.value)
-
-        val toml4 = mapper.decodeFromString<Config4>(
-            """            
+        """            
             [key]
             value = 1            
         """.trimIndent()
-        )
-
-        assertNotNull(toml4)
-        assertEquals(1L, toml4.key.value)
+            .shouldDecodeInto(
+                decodedValue = Config4(Key(1L)),
+                tomlInstance = tomlInstance
+            )
     }
 }
 
 class EmptyTomlTest {
     @Test
     fun emptyToml() {
-        var res = Toml.decodeFromString<Config>(
-            """            
+        """            
              
              
-                """.trimIndent()
-        )
+        """.trimIndent()
+            .shouldDecodeInto(Config())
 
-        assertEquals(Config(), res)
-
-        res = Toml.decodeFromString(
-            "".trimIndent()
-        )
-
-        assertEquals(Config(), res)
+        "".shouldDecodeInto(Config())
     }
 }

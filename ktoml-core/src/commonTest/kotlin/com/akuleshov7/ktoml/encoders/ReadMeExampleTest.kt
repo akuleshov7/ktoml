@@ -55,18 +55,17 @@ class ReadMeExampleTest {
 
     @Test
     fun readMeExampleTest() {
-        assertEncodedEquals(
-            value = MyClass(
-                true,
-                Table1(null, 6),
-                Table2(
-                    5,
-                    NestedTable("this is a \"literal\" \n string", listOf("a", "b", "c", null)),
-                    5.56
-                ),
-                GradlePlugin("org.jetbrains.kotlin.jvm", Version("kotlin"))
+        MyClass(
+            true,
+            Table1(null, 6),
+            Table2(
+                5,
+                NestedTable("this is a \"literal\" \n string", listOf("a", "b", "c", null)),
+                5.56
             ),
-            expectedToml = """
+            GradlePlugin("org.jetbrains.kotlin.jvm", Version("kotlin"))
+        ).shouldEncodeInto(
+            """
                 someBooleanProperty = true
                 gradle-libs-like-property = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
                 

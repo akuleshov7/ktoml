@@ -15,10 +15,7 @@ class ClassEncoderTest {
         @Serializable
         data class File(val obj: Object = Object)
 
-        assertEncodedEquals(
-            value = File(),
-            expectedToml = "[obj]"
-        )
+        File().shouldEncodeInto("[obj]")
     }
 
     @Test
@@ -43,9 +40,8 @@ class ClassEncoderTest {
             val parent: ParentTable = ParentTable()
         )
 
-        assertEncodedEquals(
-            value = File(),
-            expectedToml = """
+        File().shouldEncodeInto(
+            """
                 "key with spaces" = false
                 'keyWith"Quotes"' = 3
                 
@@ -74,9 +70,8 @@ class ClassEncoderTest {
             val b: List<Long> = listOf(1, 2, 3)
         )
 
-        assertEncodedEquals(
-            value = File(),
-            expectedToml = """
+        File().shouldEncodeInto(
+            """
                 a = 0
                 b = [ 1, 2, 3 ]
                 
@@ -105,12 +100,11 @@ class ClassEncoderTest {
             val presentTable: Table,
         )
 
-        assertEncodedEquals(
-            value = File(
-                present = true,
-                presentTable = Table(present = "value")
-            ),
-            expectedToml = """
+        File(
+            present = true,
+            presentTable = Table(present = "value")
+        ).shouldEncodeInto(
+            """
                 present = true
                 
                 [presentTable]
@@ -140,9 +134,8 @@ class ClassEncoderTest {
             val presentTable: Table? = Table()
         )
 
-        assertEncodedEquals(
-            value = File(),
-            expectedToml = """
+        File().shouldEncodeInto(
+            """
                present = nan
                
                [presentTable]

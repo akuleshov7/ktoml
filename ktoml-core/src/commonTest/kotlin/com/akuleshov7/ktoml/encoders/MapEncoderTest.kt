@@ -37,7 +37,7 @@ class MapEncoderTest {
         "keyC" to "c"
     )
 
-    private val enumMap = Key.values().associateWith(Key::value)
+    private val enumMap = Key.entries.associateWith(Key::value)
 
     @Serializable
     enum class Key(val value: String) {
@@ -51,7 +51,7 @@ class MapEncoderTest {
         @Serializable
         data class File(val map: Map<String, String>)
 
-        assertEncodedEquals(value = File(stringMap), expectedToml = simpleTable)
+       File(stringMap).shouldEncodeInto(simpleTable)
     }
 
     @Test
@@ -62,7 +62,7 @@ class MapEncoderTest {
             val map: Map<String, String>
         )
 
-        assertEncodedEquals(value = File(stringMap), expectedToml = inlineTable)
+        File(stringMap).shouldEncodeInto(inlineTable)
     }
 
     @Test
@@ -70,7 +70,7 @@ class MapEncoderTest {
         @Serializable
         data class File(val map: Map<Key, String>)
 
-        assertEncodedEquals(value = File(enumMap), expectedToml = simpleTable)
+        File(enumMap).shouldEncodeInto(simpleTable)
     }
 
     @Test
@@ -81,7 +81,7 @@ class MapEncoderTest {
             val map: Map<Key, String>
         )
 
-        assertEncodedEquals(value = File(enumMap), expectedToml = inlineTable)
+        File(enumMap).shouldEncodeInto(inlineTable)
     }
 
     @Test
@@ -101,6 +101,6 @@ class MapEncoderTest {
             )
         )
 
-        assertEncodedEquals(value = File(), expectedToml = pairArray)
+        File().shouldEncodeInto(pairArray)
     }
 }
