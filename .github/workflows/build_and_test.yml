@@ -25,7 +25,7 @@ jobs:
       # actions/checkout v1.* is needed for correct codecov upload, see https://github.com/actions/checkout/issues/237 for details
       - uses: actions/checkout@v4
       # ensure that gradle wrapper files in repository are valid by checking checksums
-      - uses: gradle/wrapper-validation-action@v2
+      - uses: gradle/wrapper-validation-action@v3
       - name: Set up JDK 8
         uses: actions/setup-java@v4
         with:
